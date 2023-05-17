@@ -1,0 +1,118 @@
+openapi: 3.0.0
+info:
+  title: API documentation template
+  version: 1.0.0
+  description:
+    This is a template for API documentation.
+    Replace this description with your own.
+
+paths:
+  /users:
+    get:
+      summary: Get a list of users
+      description: Returns a list of all users.
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                      description: The user's ID
+                    name:
+                      type: string
+                      description: The user's name
+
+    post:
+      summary: Create a new user
+      description: Creates a new user with the provided information.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The user's name
+      responses:
+        '201':
+          description: Created
+        '400':
+          description: Bad Request
+
+  /users/{id}:
+    get:
+      summary: Get user details
+      description: Returns details of a specific user.
+      parameters:
+        - name: id
+          in: path
+          description: The user's ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                    description: The user's ID
+                  name:
+                    type: string
+                    description: The user's name
+
+    put:
+      summary: Update user details
+      description: Updates the details of a specific user.
+      parameters:
+        - name: id
+          in: path
+          description: The user's ID
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  description: The user's name
+      responses:
+        '200':
+          description: OK
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+
+    delete:
+      summary: Delete a user
+      description: Deletes a specific user.
+      parameters:
+        - name: id
+          in: path
+          description: The user's ID
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
