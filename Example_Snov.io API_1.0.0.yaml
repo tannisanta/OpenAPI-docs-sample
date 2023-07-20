@@ -1,0 +1,61 @@
+---
+openapi: 3.0.0
+info:
+  title: Snov.io API
+  description: "Snov.io features can be used through our simple REST API. Integrate with Snov.io API to sync your leads, find emails, manage prospects and more. The API rate is limited to 60 requests per minute. Snov.io users with a free plan can test the API functionality by contacting us at **help@snov.io**."
+  version: 1.0.0
+servers:
+- url: https://api.snov.io/v1
+  description: Snov.io API Server
+tags:
+- name: Authentication
+  description: Generate an access token to authenticate future requests.
+paths:
+  /oauth/access_token:
+    post:
+      tags:
+      - Authentication
+      summary: Generate an access token.
+      description: "When making a request, specify the generated access token in the Authorization field."
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/oauth_access_token_body'
+        required: true
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+components:
+  schemas:
+    AccessTokenResponse:
+      type: object
+      properties:
+        access_token:
+          type: string
+          description: The generated access token.
+          example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.sflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        token_type:
+          type: string
+          description: The type of token.
+          example: bearer
+        expires_in:
+          type: integer
+          description: The expiration time of the token in seconds.
+          example: 3600
+    oauth_access_token_body:
+      type: object
+      properties:
+        grant_type:
+          type: string
+          example: client_credentials
+        client_id:
+          type: string
+          example: c57a0459f6t141659ea75cccb393c5111
+        client_secret:
+          type: string
+          example: 77cbf92b71553e85ce3bfd505214f40b
